@@ -1,21 +1,12 @@
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
+const express = require('express')
 
 const server = express()
 server.use(express.json())
 
 server.options('/', (req, res)=>{
     res.status(200).json({msg:"Tudo Ok"})
-})
-server.get('/tarefas', (req, res)=> {
-    fs.readFile('./banco.json', 'utf-8', (err, data) =>{
-        if(err){
-            res.status(500).json({erro:err})
-        } else {
-            const tarefas = JSON.parse(data)
-            res.status(200).json(tarefas)
-        }
-    })
 })
 
 function anexarConteudo(caminho, conteudo) {
@@ -33,7 +24,7 @@ function anexarConteudo(caminho, conteudo) {
 async function anexarAoArquivo() {
   const caminhoDoArquivo = 'logs.txt';
   const IdAleatorio = uuidv4().toString();
-  const data = Date.now().toString();
+  const data = new Date();
   const aluno = "Enzo";
   const resposta = `\nId: ${IdAleatorio}, Data: ${data}, Nome: ${aluno} `
 
