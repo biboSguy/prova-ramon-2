@@ -49,6 +49,16 @@ server.post('/logs', (req, res) => {
       const idGerado = adicionarMensagem(nome_aluno)
           res.status(200).json({mensagem: 'Log salvo', id: idGerado})
 })
+// funcionando parcialmente
+server.get('/logs/:id', (req, res) => {
+  const {id} =req.params
+  const mesagemLog = buscarMensagemId(id)
+  if(mesagemLog){
+      return res.status(200).json({mensagem: mesagemLog})
+  }else{
+      return res.status(404).json({erro: 'Não encontrado!'})
+  }
+})
 
 //abrir a porta
 server.listen(PORTA, () => {
